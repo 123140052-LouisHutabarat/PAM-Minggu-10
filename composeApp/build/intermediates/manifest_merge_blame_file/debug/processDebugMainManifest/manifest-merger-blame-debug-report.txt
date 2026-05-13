@@ -1,0 +1,182 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.example.project"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="36" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:4:5-67
+11-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:5:5-79
+12-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:5:22-76
+13
+14    <permission
+14-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:22:5-24:47
+15        android:name="org.example.project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="org.example.project.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" /> <!-- Declare ComponentActivity so Robolectric Compose UI tests can launch it -->
+18-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:26:22-94
+19    <application
+19-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:7:5-24:19
+20        android:name="org.example.project.MyApplication"
+20-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:8:9-38
+21        android:allowBackup="true"
+21-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:9:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.18.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\fd211d6ceef3a90d541eb1f38e2734a2\transformed\core-1.18.0\AndroidManifest.xml:28:18-86
+23        android:debuggable="true"
+24        android:extractNativeLibs="false"
+25        android:icon="@mipmap/ic_launcher"
+25-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:10:9-43
+26        android:label="@string/app_name"
+26-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:11:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:12:9-54
+28        android:supportsRtl="true"
+28-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:13:9-35
+29        android:theme="@android:style/Theme.Material.Light.NoActionBar" >
+29-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:14:9-72
+30        <activity
+30-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\debug\AndroidManifest.xml:5:9-7:39
+31            android:name="androidx.activity.ComponentActivity"
+31-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\debug\AndroidManifest.xml:6:13-63
+32            android:exported="true" />
+32-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\debug\AndroidManifest.xml:7:13-36
+33        <activity
+33-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:15:9-23:20
+34            android:name="org.example.project.MainActivity"
+34-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:17:13-41
+35            android:exported="true" >
+35-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:16:13-36
+36            <intent-filter>
+36-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:18:13-22:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:19:17-69
+37-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:19:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:21:17-77
+39-->D:\Kuliah\Semester 6\Minggu 10 PAM\composeApp\src\androidMain\AndroidManifest.xml:21:27-74
+40            </intent-filter>
+41        </activity>
+42
+43        <provider
+43-->[org.jetbrains.compose.components:components-resources-android:1.10.3] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\409cbff498e3878d3b62e9dcf855f3ed\transformed\library-release\AndroidManifest.xml:8:9-13:20
+44            android:name="org.jetbrains.compose.resources.AndroidContextProvider"
+44-->[org.jetbrains.compose.components:components-resources-android:1.10.3] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\409cbff498e3878d3b62e9dcf855f3ed\transformed\library-release\AndroidManifest.xml:9:13-82
+45            android:authorities="org.example.project.resources.AndroidContextProvider"
+45-->[org.jetbrains.compose.components:components-resources-android:1.10.3] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\409cbff498e3878d3b62e9dcf855f3ed\transformed\library-release\AndroidManifest.xml:10:13-84
+46            android:enabled="true"
+46-->[org.jetbrains.compose.components:components-resources-android:1.10.3] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\409cbff498e3878d3b62e9dcf855f3ed\transformed\library-release\AndroidManifest.xml:11:13-35
+47            android:exported="false" >
+47-->[org.jetbrains.compose.components:components-resources-android:1.10.3] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\409cbff498e3878d3b62e9dcf855f3ed\transformed\library-release\AndroidManifest.xml:12:13-37
+48        </provider>
+49        <provider
+49-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:11:9-19:20
+50            android:name="androidx.startup.InitializationProvider"
+50-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:12:13-67
+51            android:authorities="org.example.project.androidx-startup"
+51-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:13:13-68
+52            android:exported="false" >
+52-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:14:13-37
+53            <meta-data
+53-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:16:13-18:52
+54                android:name="io.kamel.core.ApplicationContextInitializer"
+54-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:17:17-75
+55                android:value="androidx.startup" />
+55-->[media.kamel:kamel-core-android-debug:0.9.4] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\6f4c910a0da9f953dd37cd4a871c2ed1\transformed\kamel-core-debug\AndroidManifest.xml:18:17-49
+56            <meta-data
+56-->[androidx.emoji2:emoji2:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de133847b0a16f028123c9d695282f0b\transformed\emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
+57                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+57-->[androidx.emoji2:emoji2:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de133847b0a16f028123c9d695282f0b\transformed\emoji2-1.4.0\AndroidManifest.xml:30:17-75
+58                android:value="androidx.startup" />
+58-->[androidx.emoji2:emoji2:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de133847b0a16f028123c9d695282f0b\transformed\emoji2-1.4.0\AndroidManifest.xml:31:17-49
+59            <meta-data
+59-->[androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\11e65066cda84e4cb25266b2dc6d8511\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:29:13-31:52
+60                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+60-->[androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\11e65066cda84e4cb25266b2dc6d8511\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:30:17-78
+61                android:value="androidx.startup" />
+61-->[androidx.lifecycle:lifecycle-process:2.10.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\11e65066cda84e4cb25266b2dc6d8511\transformed\lifecycle-process-2.10.0\AndroidManifest.xml:31:17-49
+62            <meta-data
+62-->[com.russhwolf:multiplatform-settings-no-arg-android-debug:1.1.1] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de39de31b83d3ab7db80e631780c8ea8\transformed\multiplatform-settings-no-arg-debug\AndroidManifest.xml:29:13-31:52
+63                android:name="com.russhwolf.settings.SettingsInitializer"
+63-->[com.russhwolf:multiplatform-settings-no-arg-android-debug:1.1.1] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de39de31b83d3ab7db80e631780c8ea8\transformed\multiplatform-settings-no-arg-debug\AndroidManifest.xml:30:17-74
+64                android:value="androidx.startup" />
+64-->[com.russhwolf:multiplatform-settings-no-arg-android-debug:1.1.1] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\de39de31b83d3ab7db80e631780c8ea8\transformed\multiplatform-settings-no-arg-debug\AndroidManifest.xml:31:17-49
+65            <meta-data
+65-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+66                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+66-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+67                android:value="androidx.startup" />
+67-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+68        </provider>
+69
+70        <activity
+70-->[androidx.compose.ui:ui-tooling-android:1.10.5] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\628951f37cf5989bc013253ed414cc79\transformed\ui-tooling\AndroidManifest.xml:23:9-25:39
+71            android:name="androidx.compose.ui.tooling.PreviewActivity"
+71-->[androidx.compose.ui:ui-tooling-android:1.10.5] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\628951f37cf5989bc013253ed414cc79\transformed\ui-tooling\AndroidManifest.xml:24:13-71
+72            android:exported="true" />
+72-->[androidx.compose.ui:ui-tooling-android:1.10.5] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\628951f37cf5989bc013253ed414cc79\transformed\ui-tooling\AndroidManifest.xml:25:13-36
+73
+74        <uses-library
+74-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:23:9-25:40
+75            android:name="androidx.window.extensions"
+75-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:24:13-54
+76            android:required="false" />
+76-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:25:13-37
+77        <uses-library
+77-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:26:9-28:40
+78            android:name="androidx.window.sidecar"
+78-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:27:13-51
+79            android:required="false" />
+79-->[androidx.window:window:1.5.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\8aaa167adc50a2f1463efa075d225bd6\transformed\window-1.5.0\AndroidManifest.xml:28:13-37
+80
+81        <receiver
+81-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+82            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+82-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+83            android:directBootAware="false"
+83-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+84            android:enabled="true"
+84-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+85            android:exported="true"
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+86            android:permission="android.permission.DUMP" >
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+88                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+89            </intent-filter>
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+91                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+92            </intent-filter>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+94                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+95            </intent-filter>
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+97                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\lenovo\.gradle\caches\8.14.3\transforms\85bef83d51a0a3917970a92e18e7d2c0\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+98            </intent-filter>
+99        </receiver>
+100    </application>
+101
+102</manifest>

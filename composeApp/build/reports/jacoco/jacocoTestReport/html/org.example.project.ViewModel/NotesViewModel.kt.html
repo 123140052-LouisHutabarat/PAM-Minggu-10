@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotesViewModel.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">composeApp</a> &gt; <a href="index.source.html" class="el_package">org.example.project.ViewModel</a> &gt; <span class="el_source">NotesViewModel.kt</span></div><h1>NotesViewModel.kt</h1><pre class="source lang-java linenums">package org.example.project.ViewModel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import org.example.project.Note
+import org.example.project.data.NoteRepository
+import org.example.project.data.repository.validation.NoteValidator
+import org.example.project.db.NetworkMonitor
+
+<span class="fc" id="L13">@OptIn(ExperimentalCoroutinesApi::class)</span>
+<span class="fc" id="L14">class NotesViewModel(</span>
+<span class="fc" id="L15">    private val repository: NoteRepository,</span>
+<span class="fc" id="L16">    private val validator: NoteValidator,</span>
+<span class="fc" id="L17">    private val networkMonitor: NetworkMonitor? = null,</span>
+<span class="pc" id="L18">    val enableBatteryPolling: Boolean = false</span>
+<span class="fc" id="L19">) : ViewModel() {</span>
+
+<span class="fc" id="L21">    private val _searchQuery = MutableStateFlow(&quot;&quot;)</span>
+<span class="fc" id="L22">    val searchQuery: StateFlow&lt;String&gt; = _searchQuery.asStateFlow()</span>
+
+<span class="fc" id="L24">    private val _snackbarMessage = MutableSharedFlow&lt;String&gt;()</span>
+<span class="fc" id="L25">    val snackbarMessage: SharedFlow&lt;String&gt; = _snackbarMessage.asSharedFlow()</span>
+
+<span class="fc" id="L27">    private val _showDeleteDialog = MutableStateFlow&lt;Note?&gt;(null)</span>
+<span class="fc" id="L28">    val showDeleteDialog: StateFlow&lt;Note?&gt; = _showDeleteDialog.asStateFlow()</span>
+
+<span class="pc" id="L30">    val notes: StateFlow&lt;List&lt;Note&gt;&gt; = _searchQuery</span>
+<span class="fc" id="L31">        .flatMapLatest { query: String -&gt;</span>
+<span class="fc" id="L32">            if (query.isBlank()) repository.getAllNotes()</span>
+<span class="nc" id="L33">            else repository.searchNotes(query)</span>
+        }
+<span class="fc" id="L35">        .stateIn(</span>
+<span class="fc" id="L36">            scope = viewModelScope,</span>
+<span class="fc" id="L37">            started = SharingStarted.WhileSubscribed(5000),</span>
+<span class="fc" id="L38">            initialValue = emptyList()</span>
+        )
+
+<span class="fc" id="L41">    val favoriteNotes: StateFlow&lt;List&lt;Note&gt;&gt; = repository.getFavoriteNotes()</span>
+<span class="fc" id="L42">        .stateIn(</span>
+<span class="fc" id="L43">            scope = viewModelScope,</span>
+<span class="fc" id="L44">            started = SharingStarted.WhileSubscribed(5000),</span>
+<span class="fc" id="L45">            initialValue = emptyList()</span>
+        )
+
+    sealed class NotesUiState {
+<span class="fc" id="L49">        object Loading : NotesUiState()</span>
+<span class="fc" id="L50">        object Empty : NotesUiState()</span>
+<span class="fc" id="L51">        data class Content(val notes: List&lt;Note&gt;) : NotesUiState()</span>
+    }
+
+<span class="fc" id="L54">    val uiState: StateFlow&lt;NotesUiState&gt; = notes</span>
+<span class="fc" id="L55">        .map { list: List&lt;Note&gt; -&gt;</span>
+<span class="fc" id="L56">            if (list.isEmpty()) NotesUiState.Empty</span>
+<span class="fc" id="L57">            else NotesUiState.Content(list)</span>
+        }
+<span class="fc" id="L59">        .stateIn(</span>
+<span class="fc" id="L60">            scope = viewModelScope,</span>
+<span class="fc" id="L61">            started = SharingStarted.WhileSubscribed(5000),</span>
+<span class="fc" id="L62">            initialValue = NotesUiState.Loading</span>
+        )
+
+    // Network connectivity state (optional dependency)
+<span class="pc bnc" id="L66" title="All 2 branches missed.">    val isConnected: StateFlow&lt;Boolean&gt; = networkMonitor</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        ?.observeConnectivity()</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        ?.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), true)</span>
+<span class="fc" id="L69">        ?: MutableStateFlow(true)</span>
+
+    fun addNote(title: String, content: String) {
+<span class="fc" id="L72">        val tempNote = Note(id = &quot;temp&quot;, title = title, content = content)</span>
+<span class="fc" id="L73">        val result = validator.validateDetailed(tempNote)</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!result.isValid) {</span>
+<span class="fc" id="L75">            viewModelScope.launch {</span>
+<span class="fc" id="L76">                _snackbarMessage.emit(result.errors.joinToString(&quot;; &quot;))</span>
+<span class="fc" id="L77">            }</span>
+<span class="fc" id="L78">            return</span>
+        }
+<span class="fc" id="L80">        viewModelScope.launch { repository.insertNote(title, content) }</span>
+<span class="fc" id="L81">    }</span>
+
+    fun updateNote(noteId: String, newTitle: String, newContent: String) {
+<span class="nc" id="L84">        viewModelScope.launch { repository.updateNote(noteId, newTitle, newContent) }</span>
+<span class="nc" id="L85">    }</span>
+
+    fun requestDeleteNote(note: Note) {
+<span class="fc" id="L88">        _showDeleteDialog.value = note</span>
+<span class="fc" id="L89">    }</span>
+
+    fun confirmDeleteNote() {
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        val note = _showDeleteDialog.value ?: return</span>
+<span class="fc" id="L93">        _showDeleteDialog.value = null</span>
+<span class="fc" id="L94">        deleteNote(note.id)</span>
+<span class="fc" id="L95">    }</span>
+
+    fun dismissDeleteDialog() {
+<span class="fc" id="L98">        _showDeleteDialog.value = null</span>
+<span class="fc" id="L99">    }</span>
+
+    fun deleteNote(noteId: String) {
+<span class="fc" id="L102">        viewModelScope.launch { repository.deleteNote(noteId) }</span>
+<span class="fc" id="L103">    }</span>
+
+    fun toggleFavorite(note: Note) {
+<span class="fc" id="L106">        viewModelScope.launch {</span>
+<span class="pc" id="L107">            val currentFavIds: List&lt;String&gt; = favoriteNotes.value.map { it.id }</span>
+<span class="fc" id="L108">            repository.toggleFavorite(note, currentFavIds)</span>
+<span class="fc" id="L109">        }</span>
+<span class="fc" id="L110">    }</span>
+
+<span class="fc" id="L112">    fun updateSearchQuery(query: String) { _searchQuery.value = query }</span>
+<span class="nc" id="L113">    fun onSearchQueryChange(query: String) { _searchQuery.value = query }</span>
+<span class="nc" id="L114">    fun clearSearch() { _searchQuery.value = &quot;&quot; }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

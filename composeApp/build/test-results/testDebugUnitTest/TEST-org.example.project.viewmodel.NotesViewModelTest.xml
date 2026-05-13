@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.project.viewmodel.NotesViewModelTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-05-13T08:46:39.734Z" hostname="LAPTOP-I8E8OQFB" time="0.315">
+  <properties/>
+  <testcase name="addNote_titleTooLong_emitsSnackbarError" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.033"/>
+  <testcase name="addNote_validInput_callsRepository" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.091"/>
+  <testcase name="requestDeleteNote_setsDialogState" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.015"/>
+  <testcase name="dismissDeleteDialog_clearsDialogState" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.016"/>
+  <testcase name="toggleFavorite_callsRepository" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.092"/>
+  <testcase name="addNote_blankTitle_doesNotCallRepository" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.024"/>
+  <testcase name="updateSearchQuery_updatesUiState" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.019"/>
+  <testcase name="confirmDeleteNote_callsRepositoryDelete" classname="org.example.project.viewmodel.NotesViewModelTest" time="0.024"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

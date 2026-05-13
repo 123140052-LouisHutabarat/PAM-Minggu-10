@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotesScreens.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">composeApp</a> &gt; <a href="index.source.html" class="el_package">org.example.project.UI</a> &gt; <span class="el_source">NotesScreens.kt</span></div><h1>NotesScreens.kt</h1><pre class="source lang-java linenums">package org.example.project.UI
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
+import org.example.project.Note
+import org.example.project.Navigasi.Screen
+import org.example.project.ViewModel.NotesViewModel
+import org.example.project.ViewModel.SettingsViewModel
+import org.example.project.db.BatteryInfo
+import org.example.project.db.DeviceInfo
+import org.example.project.ui.testing.TestTags
+import org.koin.compose.koinInject
+
+@Composable
+fun NoteCard(
+    note: Note,
+    isFav: Boolean,
+    onClick: () -&gt; Unit,
+    onLongPress: () -&gt; Unit,
+    onFavClick: () -&gt; Unit,
+<span class="pc" id="L42">    onDeleteClick: () -&gt; Unit = {}</span>
+<span class="pc bpc" id="L43" title="17 of 32 branches missed.">) {</span>
+<span class="fc" id="L44">    Card(</span>
+<span class="fc" id="L45">        modifier = Modifier</span>
+<span class="fc" id="L46">            .fillMaxWidth()</span>
+<span class="fc" id="L47">            .semantics { testTag = TestTags.NOTE_CARD }</span>
+<span class="pc bpc" id="L48" title="2 of 4 branches missed.">            .pointerInput(Unit) {</span>
+<span class="pc" id="L49">                detectTapGestures(onTap = { onClick() }, onLongPress = { onLongPress() })</span>
+<span class="nc" id="L50">            },</span>
+<span class="fc" id="L51">        elevation = CardDefaults.cardElevation(4.dp),</span>
+<span class="fc" id="L52">        shape = RoundedCornerShape(16.dp),</span>
+<span class="fc" id="L53">        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)</span>
+<span class="fc" id="L54">    ) {</span>
+<span class="fc" id="L55">        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {</span>
+<span class="fc" id="L56">            Column(Modifier.weight(1f)) {</span>
+<span class="fc" id="L57">                Text(</span>
+<span class="fc" id="L58">                    note.title,</span>
+<span class="fc" id="L59">                    fontWeight = FontWeight.Bold,</span>
+<span class="fc" id="L60">                    fontSize = 16.sp,</span>
+<span class="fc" id="L61">                    color = MaterialTheme.colorScheme.onSurface,</span>
+<span class="fc" id="L62">                    maxLines = 1,</span>
+<span class="fc" id="L63">                    overflow = TextOverflow.Ellipsis,</span>
+<span class="fc" id="L64">                    modifier = Modifier.semantics { testTag = TestTags.NOTE_TITLE }</span>
+                )
+<span class="fc" id="L66">                Spacer(Modifier.height(4.dp))</span>
+<span class="fc" id="L67">                Text(</span>
+<span class="fc" id="L68">                    note.content,</span>
+<span class="fc" id="L69">                    maxLines = 2,</span>
+<span class="fc" id="L70">                    fontSize = 13.sp,</span>
+<span class="fc" id="L71">                    color = MaterialTheme.colorScheme.onSurfaceVariant,</span>
+<span class="fc" id="L72">                    overflow = TextOverflow.Ellipsis,</span>
+<span class="fc" id="L73">                    lineHeight = 18.sp,</span>
+<span class="fc" id="L74">                    modifier = Modifier.semantics { testTag = TestTags.NOTE_CONTENT }</span>
+                )
+<span class="fc" id="L76">            }</span>
+<span class="fc" id="L77">            IconButton(</span>
+<span class="fc" id="L78">                onClick = onFavClick,</span>
+<span class="fc" id="L79">                modifier = Modifier.semantics { testTag = TestTags.FAVORITE_BUTTON }</span>
+<span class="fc" id="L80">            ) {</span>
+<span class="fc" id="L81">                Icon(</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                    if (isFav) Icons.Default.Favorite else Icons.Default.FavoriteBorder,</span>
+<span class="fc" id="L83">                    contentDescription = &quot;Favorit&quot;,</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">                    tint = if (isFav) Color.Red else Color.Gray</span>
+                )
+<span class="fc" id="L86">            }</span>
+<span class="fc" id="L87">            IconButton(</span>
+<span class="fc" id="L88">                onClick = onDeleteClick,</span>
+<span class="fc" id="L89">                modifier = Modifier.semantics { testTag = TestTags.DELETE_BUTTON }</span>
+<span class="fc" id="L90">            ) {</span>
+<span class="fc" id="L91">                Icon(</span>
+<span class="fc" id="L92">                    Icons.Default.Delete,</span>
+<span class="fc" id="L93">                    contentDescription = &quot;Hapus&quot;,</span>
+<span class="fc" id="L94">                    tint = MaterialTheme.colorScheme.error.copy(alpha = 0.7f)</span>
+                )
+<span class="fc" id="L96">            }</span>
+<span class="fc" id="L97">        }</span>
+<span class="fc" id="L98">    }</span>
+<span class="fc" id="L99">}</span>
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun NotesListScreen(
+    navController: NavController,
+    notesList: List&lt;Note&gt;,
+    favList: List&lt;Note&gt;,
+    viewModel: NotesViewModel,
+<span class="nc" id="L108">    settingsViewModel: SettingsViewModel? = null</span>
+<span class="nc bnc" id="L109" title="All 28 branches missed.">) {</span>
+<span class="nc" id="L110">    var noteToDelete by remember { mutableStateOf&lt;Note?&gt;(null) }</span>
+<span class="nc" id="L111">    val searchQuery by viewModel.searchQuery.collectAsState()</span>
+<span class="nc" id="L112">    val uiState by viewModel.uiState.collectAsState()</span>
+<span class="nc bnc" id="L113" title="All 6 branches missed.">    val settingsState = settingsViewModel?.uiState?.collectAsState()?.value</span>
+
+<span class="nc" id="L115">    val sortedList = remember(notesList, settingsState) {</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        when (settingsState?.sortOrder) {</span>
+<span class="nc" id="L117">            &quot;oldest&quot; -&gt; notesList.sortedBy { it.id }</span>
+<span class="nc" id="L118">            &quot;title&quot;  -&gt; notesList.sortedBy { it.title }</span>
+<span class="nc" id="L119">            else     -&gt; notesList</span>
+<span class="nc" id="L120">        }.let { list -&gt;</span>
+<span class="nc bnc" id="L121" title="All 6 branches missed.">            if (settingsState?.showFavoritesFirst == true)</span>
+<span class="nc" id="L122">                list.sortedByDescending { note -&gt; favList.any { it.id == note.id } }</span>
+<span class="nc" id="L123">            else list</span>
+<span class="nc" id="L124">        }</span>
+    }
+
+<span class="nc" id="L127">    Column(modifier = Modifier.fillMaxSize()) {</span>
+<span class="nc" id="L128">        SearchBar(</span>
+<span class="nc" id="L129">            query = searchQuery,</span>
+<span class="nc" id="L130">            onQueryChange = { viewModel.onSearchQueryChange(it) },</span>
+<span class="nc" id="L131">            onClear = { viewModel.clearSearch() },</span>
+<span class="nc" id="L132">            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)</span>
+        )
+<span class="nc" id="L134">        Box(modifier = Modifier.weight(1f)) {</span>
+<span class="nc" id="L135">            when (uiState) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                is NotesViewModel.NotesUiState.Loading -&gt; {</span>
+<span class="nc" id="L137">                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {</span>
+<span class="nc" id="L138">                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)</span>
+<span class="nc" id="L139">                    }</span>
+                }
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                is NotesViewModel.NotesUiState.Empty -&gt; {</span>
+<span class="nc" id="L142">                    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {</span>
+<span class="nc" id="L143">                        Column(horizontalAlignment = Alignment.CenterHorizontally) {</span>
+<span class="nc" id="L144">                            Icon(</span>
+<span class="nc" id="L145">                                Icons.Default.NoteAlt, null,</span>
+<span class="nc" id="L146">                                modifier = Modifier.size(64.dp),</span>
+<span class="nc" id="L147">                                tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)</span>
+                            )
+<span class="nc" id="L149">                            Spacer(Modifier.height(12.dp))</span>
+<span class="nc" id="L150">                            Text(</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                                if (searchQuery.isBlank()) &quot;Belum ada catatan.\nTambah catatan baru!&quot;</span>
+<span class="nc" id="L152">                                else &quot;Catatan '${searchQuery}' tidak ditemukan.&quot;,</span>
+<span class="nc" id="L153">                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),</span>
+<span class="nc" id="L154">                                fontSize = 15.sp,</span>
+<span class="nc" id="L155">                                textAlign = androidx.compose.ui.text.style.TextAlign.Center</span>
+                            )
+<span class="nc" id="L157">                        }</span>
+<span class="nc" id="L158">                    }</span>
+                }
+<span class="nc bnc" id="L160" title="All 2 branches missed.">                is NotesViewModel.NotesUiState.Content -&gt; {</span>
+<span class="nc" id="L161">                    LazyColumn(</span>
+<span class="nc" id="L162">                        modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),</span>
+<span class="nc" id="L163">                        verticalArrangement = Arrangement.spacedBy(10.dp),</span>
+<span class="nc" id="L164">                        contentPadding = PaddingValues(bottom = 80.dp, top = 4.dp)</span>
+<span class="nc" id="L165">                    ) {</span>
+<span class="nc" id="L166">                        items(sortedList, key = { it.id }) { note -&gt;</span>
+<span class="nc" id="L167">                            NoteCard(</span>
+<span class="nc" id="L168">                                note = note,</span>
+<span class="nc" id="L169">                                isFav = favList.any { it.id == note.id },</span>
+<span class="nc" id="L170">                                onClick = { navController.navigate(Screen.NoteDetail.createRoute(note.id)) },</span>
+<span class="nc" id="L171">                                onLongPress = { noteToDelete = note },</span>
+<span class="nc" id="L172">                                onFavClick = { viewModel.toggleFavorite(note) }</span>
+<span class="nc" id="L173">                            )</span>
+<span class="nc" id="L174">                        }</span>
+<span class="nc" id="L175">                    }</span>
+                }
+<span class="nc" id="L177">            }</span>
+<span class="nc" id="L178">            FloatingActionButton(</span>
+<span class="nc" id="L179">                onClick = { navController.navigate(Screen.AddNote.route) },</span>
+<span class="nc" id="L180">                modifier = Modifier.align(Alignment.BottomEnd).padding(24.dp),</span>
+<span class="nc" id="L181">                containerColor = MaterialTheme.colorScheme.primary,</span>
+<span class="nc" id="L182">                contentColor = MaterialTheme.colorScheme.onPrimary</span>
+<span class="fc" id="L183">            ) {</span>
+<span class="nc" id="L184">                Icon(Icons.Default.Add, contentDescription = &quot;Tambah Catatan&quot;)</span>
+<span class="nc" id="L185">            }</span>
+<span class="nc" id="L186">        }</span>
+<span class="nc" id="L187">    }</span>
+
+<span class="nc bnc" id="L189" title="All 2 branches missed.">    if (noteToDelete != null) {</span>
+<span class="nc" id="L190">        AlertDialog(</span>
+<span class="nc" id="L191">            onDismissRequest = { noteToDelete = null },</span>
+<span class="pc" id="L192">            title = { Text(&quot;Hapus Catatan?&quot;) },</span>
+<span class="nc" id="L193">            text = { Text(&quot;Hapus '${noteToDelete!!.title}' secara permanen?&quot;) },</span>
+<span class="nc" id="L194">            confirmButton = {</span>
+<span class="pc" id="L195">                TextButton(onClick = { viewModel.deleteNote(noteToDelete!!.id); noteToDelete = null }) {</span>
+<span class="nc" id="L196">                    Text(&quot;Hapus&quot;, color = MaterialTheme.colorScheme.error)</span>
+<span class="nc" id="L197">                }</span>
+<span class="nc" id="L198">            },</span>
+<span class="nc" id="L199">            dismissButton = {</span>
+<span class="pc" id="L200">                TextButton(onClick = { noteToDelete = null }) {</span>
+<span class="nc" id="L201">                    Text(&quot;Batal&quot;, color = MaterialTheme.colorScheme.primary)</span>
+<span class="nc" id="L202">                }</span>
+<span class="nc" id="L203">            }</span>
+        )
+<span class="nc" id="L205">    }</span>
+<span class="nc" id="L206">}</span>
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+<span class="nc bnc" id="L210" title="All 24 branches missed.">fun SearchBar(query: String, onQueryChange: (String) -&gt; Unit, onClear: () -&gt; Unit, modifier: Modifier = Modifier) {</span>
+<span class="nc" id="L211">    OutlinedTextField(</span>
+<span class="nc" id="L212">        value = query, onValueChange = onQueryChange, modifier = modifier,</span>
+<span class="pc" id="L213">        placeholder = { Text(&quot;Cari catatan...&quot;) },</span>
+<span class="pc" id="L214">        leadingIcon = { Icon(Icons.Default.Search, null, tint = MaterialTheme.colorScheme.primary) },</span>
+<span class="nc" id="L215">        trailingIcon = {</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">            AnimatedVisibility(visible = query.isNotEmpty()) {</span>
+<span class="pc" id="L217">                IconButton(onClick = onClear) { Icon(Icons.Default.Clear, null) }</span>
+<span class="nc" id="L218">            }</span>
+<span class="nc" id="L219">        },</span>
+<span class="nc" id="L220">        singleLine = true, shape = RoundedCornerShape(16.dp),</span>
+<span class="nc" id="L221">        colors = OutlinedTextFieldDefaults.colors(</span>
+<span class="nc" id="L222">            focusedBorderColor = MaterialTheme.colorScheme.primary,</span>
+<span class="nc" id="L223">            unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)</span>
+        )
+    )
+<span class="nc" id="L226">}</span>
+
+@Composable
+<span class="nc bnc" id="L229" title="All 16 branches missed.">fun FavoritesScreen(navController: NavController, favList: List&lt;Note&gt;, viewModel: NotesViewModel) {</span>
+<span class="nc bnc" id="L230" title="All 2 branches missed.">    if (favList.isEmpty()) {</span>
+<span class="nc" id="L231">        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {</span>
+<span class="nc" id="L232">            Column(horizontalAlignment = Alignment.CenterHorizontally) {</span>
+<span class="nc" id="L233">                Icon(Icons.Default.FavoriteBorder, null, Modifier.size(64.dp),</span>
+<span class="nc" id="L234">                    tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))</span>
+<span class="nc" id="L235">                Spacer(Modifier.height(12.dp))</span>
+<span class="nc" id="L236">                Text(&quot;Belum ada catatan favorit.\nTap ❤ pada catatan untuk menambahkan.&quot;,</span>
+<span class="nc" id="L237">                    color = Color.Gray, fontSize = 14.sp,</span>
+<span class="nc" id="L238">                    textAlign = androidx.compose.ui.text.style.TextAlign.Center)</span>
+<span class="nc" id="L239">            }</span>
+<span class="nc" id="L240">        }</span>
+    } else {
+<span class="nc" id="L242">        LazyColumn(Modifier.fillMaxSize().padding(horizontal = 16.dp),</span>
+<span class="nc" id="L243">            verticalArrangement = Arrangement.spacedBy(10.dp),</span>
+<span class="nc" id="L244">            contentPadding = PaddingValues(vertical = 12.dp)) {</span>
+<span class="nc" id="L245">            items(favList, key = { it.id }) { note -&gt;</span>
+<span class="nc" id="L246">                NoteCard(note = note, isFav = true,</span>
+<span class="nc" id="L247">                    onClick = { navController.navigate(Screen.NoteDetail.createRoute(note.id)) },</span>
+<span class="nc" id="L248">                    onLongPress = {}, onFavClick = { viewModel.toggleFavorite(note) })</span>
+<span class="nc" id="L249">            }</span>
+<span class="nc" id="L250">        }</span>
+    }
+<span class="nc" id="L252">}</span>
+
+@Composable
+<span class="nc bnc" id="L255" title="All 8 branches missed.">fun AddNoteScreen(onNoteSaved: (String, String) -&gt; Unit) {</span>
+<span class="nc" id="L256">    var title by remember { mutableStateOf(&quot;&quot;) }</span>
+<span class="nc" id="L257">    var content by remember { mutableStateOf(&quot;&quot;) }</span>
+<span class="nc" id="L258">    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {</span>
+<span class="nc" id="L259">        OutlinedTextField(value = title, onValueChange = { title = it },</span>
+<span class="pc" id="L260">            label = { Text(&quot;Judul Catatan&quot;) }, modifier = Modifier.fillMaxWidth(),</span>
+<span class="nc" id="L261">            singleLine = true, shape = RoundedCornerShape(12.dp))</span>
+<span class="nc" id="L262">        Spacer(Modifier.height(12.dp))</span>
+<span class="nc" id="L263">        OutlinedTextField(value = content, onValueChange = { content = it },</span>
+<span class="pc" id="L264">            label = { Text(&quot;Isi Catatan&quot;) },</span>
+<span class="nc" id="L265">            modifier = Modifier.fillMaxWidth().weight(1f),</span>
+<span class="nc" id="L266">            minLines = 5, shape = RoundedCornerShape(12.dp))</span>
+<span class="nc" id="L267">        Spacer(Modifier.height(16.dp))</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">        Button(onClick = { onNoteSaved(title, content) },</span>
+<span class="nc bnc" id="L269" title="All 8 branches missed.">            enabled = title.isNotBlank() &amp;&amp; content.isNotBlank(),</span>
+<span class="pc" id="L270">            modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp)) {</span>
+<span class="nc" id="L271">            Icon(Icons.Default.Save, null, Modifier.size(18.dp))</span>
+<span class="nc" id="L272">            Spacer(Modifier.width(8.dp)); Text(&quot;Simpan Catatan&quot;)</span>
+<span class="nc" id="L273">        }</span>
+<span class="nc" id="L274">    }</span>
+<span class="nc" id="L275">}</span>
+
+@Composable
+<span class="nc bnc" id="L278" title="All 12 branches missed.">fun NoteDetailContent(noteData: Note?, navController: NavController) {</span>
+<span class="nc" id="L279">    Column(Modifier.fillMaxSize().padding(16.dp)) {</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">        if (noteData == null) {</span>
+<span class="nc" id="L281">            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {</span>
+<span class="nc" id="L282">                Text(&quot;Data tidak ditemukan&quot;, color = Color.Gray)</span>
+<span class="nc" id="L283">            }</span>
+<span class="nc" id="L284">        } else {</span>
+<span class="nc" id="L285">            Text(noteData.title, fontSize = 24.sp, fontWeight = FontWeight.Bold,</span>
+<span class="nc" id="L286">                color = MaterialTheme.colorScheme.onBackground)</span>
+<span class="nc" id="L287">            HorizontalDivider(Modifier.padding(vertical = 16.dp))</span>
+<span class="nc" id="L288">            Text(noteData.content, fontSize = 16.sp, modifier = Modifier.weight(1f),</span>
+<span class="nc" id="L289">                color = MaterialTheme.colorScheme.onBackground, lineHeight = 24.sp)</span>
+<span class="nc" id="L290">            Spacer(Modifier.height(16.dp))</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">            Button(onClick = { navController.navigate(Screen.EditNote.createRoute(noteData.id)) },</span>
+<span class="pc" id="L292">                modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp)) {</span>
+<span class="nc" id="L293">                Icon(Icons.Default.Edit, null, Modifier.size(18.dp))</span>
+<span class="nc" id="L294">                Spacer(Modifier.width(8.dp)); Text(&quot;Edit Catatan&quot;)</span>
+<span class="nc" id="L295">            }</span>
+        }
+<span class="nc" id="L297">    }</span>
+<span class="nc" id="L298">}</span>
+
+@Composable
+<span class="nc bnc" id="L301" title="All 12 branches missed.">fun EditNoteScreen(noteData: Note?, onNoteSaved: (String, String) -&gt; Unit) {</span>
+<span class="nc bnc" id="L302" title="All 4 branches missed.">    var title by remember { mutableStateOf(noteData?.title ?: &quot;&quot;) }</span>
+<span class="nc bnc" id="L303" title="All 4 branches missed.">    var content by remember { mutableStateOf(noteData?.content ?: &quot;&quot;) }</span>
+<span class="nc" id="L304">    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {</span>
+<span class="nc" id="L305">        OutlinedTextField(value = title, onValueChange = { title = it },</span>
+<span class="pc" id="L306">            label = { Text(&quot;Judul Catatan&quot;) }, modifier = Modifier.fillMaxWidth(),</span>
+<span class="nc" id="L307">            singleLine = true, shape = RoundedCornerShape(12.dp))</span>
+<span class="nc" id="L308">        Spacer(Modifier.height(12.dp))</span>
+<span class="nc" id="L309">        OutlinedTextField(value = content, onValueChange = { content = it },</span>
+<span class="pc" id="L310">            label = { Text(&quot;Isi Catatan&quot;) },</span>
+<span class="nc" id="L311">            modifier = Modifier.fillMaxWidth().weight(1f),</span>
+<span class="nc" id="L312">            minLines = 5, shape = RoundedCornerShape(12.dp))</span>
+<span class="nc" id="L313">        Spacer(Modifier.height(16.dp))</span>
+<span class="nc bnc" id="L314" title="All 2 branches missed.">        Button(onClick = { onNoteSaved(title, content) },</span>
+<span class="nc bnc" id="L315" title="All 8 branches missed.">            enabled = title.isNotBlank() &amp;&amp; content.isNotBlank(),</span>
+<span class="pc" id="L316">            modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(12.dp)) {</span>
+<span class="nc" id="L317">            Icon(Icons.Default.Save, null, Modifier.size(18.dp))</span>
+<span class="nc" id="L318">            Spacer(Modifier.width(8.dp)); Text(&quot;Update Catatan&quot;)</span>
+<span class="nc" id="L319">        }</span>
+<span class="nc" id="L320">    }</span>
+<span class="nc" id="L321">}</span>
+
+@Composable
+<span class="nc bnc" id="L324" title="All 8 branches missed.">fun SettingsScreen(viewModel: SettingsViewModel) {</span>
+<span class="nc" id="L325">    val state      by viewModel.uiState.collectAsState()</span>
+<span class="nc" id="L326">    val deviceInfo: DeviceInfo = koinInject()</span>
+<span class="nc" id="L327">    val batteryInfo: BatteryInfo = koinInject()</span>
+
+<span class="nc" id="L329">    val batteryLevel = remember { batteryInfo.getBatteryLevel() }</span>
+<span class="nc" id="L330">    val isCharging   = remember { batteryInfo.isCharging() }</span>
+
+<span class="nc" id="L332">    val batteryColor = when {</span>
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        batteryLevel &gt;= 60 -&gt; Color(0xFF2E7D32)</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">        batteryLevel &gt;= 30 -&gt; Color(0xFFF57F17)</span>
+<span class="nc" id="L335">        else               -&gt; Color(0xFFC62828)</span>
+    }
+
+<span class="nc" id="L338">    val cardBg   = MaterialTheme.colorScheme.surface</span>
+<span class="nc" id="L339">    val onCardBg = MaterialTheme.colorScheme.onSurface</span>
+
+<span class="nc" id="L341">    Column(</span>
+<span class="nc" id="L342">        modifier = Modifier</span>
+<span class="nc" id="L343">            .fillMaxSize()</span>
+<span class="nc" id="L344">            .verticalScroll(rememberScrollState())</span>
+<span class="nc" id="L345">            .padding(16.dp)</span>
+    ) {
+<span class="nc" id="L347">        Text(&quot;Pengaturan Aplikasi&quot;, fontWeight = FontWeight.Bold, fontSize = 20.sp,</span>
+<span class="nc" id="L348">            color = onCardBg)</span>
+<span class="nc" id="L349">        Spacer(Modifier.height(20.dp))</span>
+
+<span class="nc" id="L351">        SettingsSectionHeader(&quot;Informasi Perangkat&quot;)</span>
+<span class="nc" id="L352">        Spacer(Modifier.height(8.dp))</span>
+
+<span class="nc" id="L354">        Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),</span>
+<span class="nc" id="L355">            colors = CardDefaults.cardColors(containerColor = cardBg),</span>
+<span class="nc" id="L356">            elevation = CardDefaults.cardElevation(4.dp)) {</span>
+<span class="nc" id="L357">            Column(Modifier.padding(16.dp)) {</span>
+
+<span class="nc" id="L359">                DeviceInfoRow(Icons.Default.PhoneAndroid, &quot;Perangkat&quot;,</span>
+<span class="nc" id="L360">                    deviceInfo.getDeviceName(), onCardBg)</span>
+<span class="nc" id="L361">                RowDivider()</span>
+
+<span class="nc" id="L363">                DeviceInfoRow(Icons.Default.Android, &quot;Sistem Operasi&quot;,</span>
+<span class="nc" id="L364">                    deviceInfo.getOsVersion(), onCardBg)</span>
+<span class="nc" id="L365">                RowDivider()</span>
+
+<span class="nc" id="L367">                DeviceInfoRow(Icons.Default.AppSettingsAlt, &quot;Versi Aplikasi&quot;,</span>
+<span class="nc" id="L368">                    deviceInfo.getAppVersion(), onCardBg)</span>
+<span class="nc" id="L369">                RowDivider()</span>
+
+<span class="nc" id="L371">                Row(verticalAlignment = Alignment.CenterVertically,</span>
+<span class="nc" id="L372">                    modifier = Modifier.fillMaxWidth()) {</span>
+<span class="nc" id="L373">                    Icon(</span>
+<span class="nc bnc" id="L374" title="All 2 branches missed.">                        imageVector = if (isCharging) Icons.Default.BatteryChargingFull</span>
+<span class="nc" id="L375">                        else Icons.Default.Battery5Bar,</span>
+<span class="nc" id="L376">                        contentDescription = null, tint = batteryColor,</span>
+<span class="nc" id="L377">                        modifier = Modifier.size(22.dp)</span>
+                    )
+<span class="nc" id="L379">                    Spacer(Modifier.width(12.dp))</span>
+<span class="nc" id="L380">                    Column(Modifier.weight(1f)) {</span>
+<span class="nc" id="L381">                        Text(&quot;Baterai&quot;, fontSize = 12.sp, color = onCardBg.copy(alpha = 0.6f))</span>
+<span class="nc" id="L382">                        Row(verticalAlignment = Alignment.CenterVertically) {</span>
+<span class="nc" id="L383">                            Text(&quot;$batteryLevel%&quot;, fontSize = 15.sp,</span>
+<span class="nc" id="L384">                                fontWeight = FontWeight.SemiBold, color = batteryColor)</span>
+<span class="nc bnc" id="L385" title="All 2 branches missed.">                            if (isCharging) {</span>
+<span class="nc" id="L386">                                Spacer(Modifier.width(6.dp))</span>
+<span class="nc" id="L387">                                Surface(shape = RoundedCornerShape(4.dp),</span>
+<span class="pc" id="L388">                                    color = Color(0xFF2E7D32).copy(alpha = 0.15f)) {</span>
+<span class="nc" id="L389">                                    Text(&quot;Mengisi daya&quot;, fontSize = 11.sp,</span>
+<span class="nc" id="L390">                                        color = Color(0xFF2E7D32),</span>
+<span class="nc" id="L391">                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp))</span>
+<span class="nc" id="L392">                                }</span>
+<span class="nc" id="L393">                            }</span>
+<span class="nc" id="L394">                        }</span>
+<span class="nc" id="L395">                    }</span>
+<span class="nc" id="L396">                }</span>
+<span class="nc" id="L397">                Spacer(Modifier.height(8.dp))</span>
+<span class="nc" id="L398">                LinearProgressIndicator(</span>
+<span class="nc" id="L399">                    progress = { batteryLevel / 100f },</span>
+<span class="nc" id="L400">                    modifier = Modifier.fillMaxWidth().height(6.dp),</span>
+<span class="nc" id="L401">                    color = batteryColor,</span>
+<span class="nc" id="L402">                    trackColor = batteryColor.copy(alpha = 0.2f)</span>
+                )
+<span class="nc" id="L404">            }</span>
+<span class="nc" id="L405">        }</span>
+
+<span class="nc" id="L407">        Spacer(Modifier.height(20.dp))</span>
+<span class="nc" id="L408">        HorizontalDivider()</span>
+<span class="nc" id="L409">        Spacer(Modifier.height(16.dp))</span>
+
+<span class="nc" id="L411">        SettingsSectionHeader(&quot;Tampilan&quot;)</span>
+<span class="nc" id="L412">        Spacer(Modifier.height(8.dp))</span>
+
+<span class="nc" id="L414">        Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),</span>
+<span class="nc" id="L415">            colors = CardDefaults.cardColors(containerColor = cardBg),</span>
+<span class="nc" id="L416">            elevation = CardDefaults.cardElevation(4.dp)) {</span>
+<span class="nc" id="L417">            SettingsToggleItem(</span>
+<span class="nc" id="L418">                icon = Icons.Default.DarkMode, title = &quot;Mode Gelap&quot;,</span>
+<span class="nc" id="L419">                subtitle = &quot;Aktifkan tema gelap&quot;, checked = state.isDarkMode,</span>
+<span class="nc" id="L420">                onCheckedChange = { viewModel.toggleDarkMode(it) }</span>
+            )
+<span class="nc" id="L422">        }</span>
+
+<span class="nc" id="L424">        Spacer(Modifier.height(16.dp))</span>
+<span class="nc" id="L425">        HorizontalDivider()</span>
+<span class="nc" id="L426">        Spacer(Modifier.height(16.dp))</span>
+
+<span class="nc" id="L428">        SettingsSectionHeader(&quot;Catatan&quot;)</span>
+<span class="nc" id="L429">        Spacer(Modifier.height(8.dp))</span>
+
+<span class="nc" id="L431">        Card(modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp),</span>
+<span class="nc" id="L432">            colors = CardDefaults.cardColors(containerColor = cardBg),</span>
+<span class="nc" id="L433">            elevation = CardDefaults.cardElevation(4.dp)) {</span>
+<span class="nc" id="L434">            Column {</span>
+<span class="nc" id="L435">                SettingsToggleItem(</span>
+<span class="nc" id="L436">                    icon = Icons.Default.Favorite, title = &quot;Favorit di Atas&quot;,</span>
+<span class="nc" id="L437">                    subtitle = &quot;Tampilkan catatan favorit di urutan pertama&quot;,</span>
+<span class="nc" id="L438">                    checked = state.showFavoritesFirst,</span>
+<span class="nc" id="L439">                    onCheckedChange = { viewModel.toggleShowFavoritesFirst(it) }</span>
+                )
+<span class="nc" id="L441">                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f))</span>
+<span class="nc" id="L442">                Column(Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {</span>
+<span class="nc" id="L443">                    Text(&quot;Urutan Catatan&quot;, fontWeight = FontWeight.SemiBold, fontSize = 14.sp,</span>
+<span class="nc" id="L444">                        color = MaterialTheme.colorScheme.primary)</span>
+<span class="nc" id="L445">                    Spacer(Modifier.height(8.dp))</span>
+<span class="nc" id="L446">                    listOf(</span>
+<span class="nc" id="L447">                        Triple(&quot;newest&quot;, Icons.Default.AccessTime,  &quot;Terbaru&quot;),</span>
+<span class="nc" id="L448">                        Triple(&quot;oldest&quot;, Icons.Default.History,     &quot;Terlama&quot;),</span>
+<span class="nc" id="L449">                        Triple(&quot;title&quot;,  Icons.Default.SortByAlpha, &quot;Abjad (A-Z)&quot;)</span>
+<span class="nc" id="L450">                    ).forEach { (value, icon, label) -&gt;</span>
+<span class="nc" id="L451">                        SortOrderItem(</span>
+<span class="nc" id="L452">                            icon = { Icon(icon, null, Modifier.size(20.dp), tint = onCardBg) },</span>
+<span class="nc" id="L453">                            label = label, selected = state.sortOrder == value,</span>
+<span class="nc" id="L454">                            onClick = { viewModel.setSortOrder(value) }</span>
+                        )
+<span class="nc" id="L456">                    }</span>
+<span class="nc" id="L457">                }</span>
+<span class="nc" id="L458">            }</span>
+<span class="nc" id="L459">        }</span>
+<span class="nc" id="L460">        Spacer(Modifier.height(24.dp))</span>
+<span class="nc" id="L461">    }</span>
+<span class="nc" id="L462">}</span>
+
+@Composable
+<span class="nc bnc" id="L465" title="All 4 branches missed.">private fun RowDivider() = HorizontalDivider(</span>
+<span class="nc" id="L466">    modifier = Modifier.padding(vertical = 10.dp),</span>
+<span class="nc" id="L467">    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.15f)</span>
+<span class="nc" id="L468">)</span>
+
+@Composable
+<span class="nc bnc" id="L471" title="All 2 branches missed.">private fun DeviceInfoRow(</span>
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String, value: String,
+<span class="nc" id="L474">    contentColor: Color = MaterialTheme.colorScheme.onSurface</span>
+<span class="nc bnc" id="L475" title="All 28 branches missed.">) {</span>
+<span class="nc" id="L476">    Row(verticalAlignment = Alignment.CenterVertically) {</span>
+<span class="nc" id="L477">        Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(22.dp))</span>
+<span class="nc" id="L478">        Spacer(Modifier.width(12.dp))</span>
+<span class="nc" id="L479">        Column {</span>
+<span class="nc" id="L480">            Text(label, fontSize = 12.sp, color = contentColor.copy(alpha = 0.6f))</span>
+<span class="nc" id="L481">            Text(value, fontSize = 15.sp, fontWeight = FontWeight.Medium, color = contentColor)</span>
+<span class="nc" id="L482">        }</span>
+<span class="nc" id="L483">    }</span>
+<span class="nc" id="L484">}</span>
+
+@Composable
+<span class="nc bnc" id="L487" title="All 8 branches missed.">private fun SettingsSectionHeader(title: String) {</span>
+<span class="nc" id="L488">    Text(title, fontSize = 12.sp, fontWeight = FontWeight.Bold,</span>
+<span class="nc" id="L489">        color = MaterialTheme.colorScheme.primary,</span>
+<span class="nc" id="L490">        letterSpacing = androidx.compose.ui.unit.TextUnit(1.5f,</span>
+<span class="nc" id="L491">            androidx.compose.ui.unit.TextUnitType.Sp))</span>
+<span class="nc" id="L492">}</span>
+
+@Composable
+private fun SettingsToggleItem(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    title: String, subtitle: String, checked: Boolean,
+    onCheckedChange: (Boolean) -&gt; Unit
+<span class="nc bnc" id="L499" title="All 24 branches missed.">) {</span>
+<span class="nc" id="L500">    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),</span>
+<span class="nc" id="L501">        verticalAlignment = Alignment.CenterVertically) {</span>
+<span class="nc" id="L502">        Icon(icon, null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(24.dp))</span>
+<span class="nc" id="L503">        Spacer(Modifier.width(16.dp))</span>
+<span class="nc" id="L504">        Column(Modifier.weight(1f)) {</span>
+<span class="nc" id="L505">            Text(title, fontWeight = FontWeight.Medium, fontSize = 15.sp,</span>
+<span class="nc" id="L506">                color = MaterialTheme.colorScheme.onSurface)</span>
+<span class="nc" id="L507">            Text(subtitle, fontSize = 12.sp,</span>
+<span class="nc" id="L508">                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))</span>
+<span class="nc" id="L509">        }</span>
+<span class="nc" id="L510">        Switch(checked = checked, onCheckedChange = onCheckedChange,</span>
+<span class="nc" id="L511">            colors = SwitchDefaults.colors(</span>
+<span class="nc" id="L512">                checkedThumbColor = MaterialTheme.colorScheme.primary,</span>
+<span class="nc" id="L513">                checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.4f)</span>
+            ))
+<span class="nc" id="L515">    }</span>
+<span class="nc" id="L516">}</span>
+
+@Composable
+private fun SortOrderItem(icon: @Composable () -&gt; Unit, label: String,
+<span class="nc bnc" id="L520" title="All 20 branches missed.">                          selected: Boolean, onClick: () -&gt; Unit) {</span>
+<span class="nc" id="L521">    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),</span>
+<span class="nc" id="L522">        verticalAlignment = Alignment.CenterVertically) {</span>
+<span class="nc" id="L523">        RadioButton(selected = selected, onClick = onClick,</span>
+<span class="nc" id="L524">            colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.primary))</span>
+<span class="nc" id="L525">        Spacer(Modifier.width(8.dp)); icon()</span>
+<span class="nc" id="L526">        Spacer(Modifier.width(8.dp))</span>
+<span class="nc" id="L527">        Text(label, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface)</span>
+<span class="nc" id="L528">    }</span>
+<span class="nc" id="L529">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

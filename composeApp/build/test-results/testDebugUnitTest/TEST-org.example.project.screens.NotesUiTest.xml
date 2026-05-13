@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.project.screens.NotesUiTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-05-13T08:46:28.688Z" hostname="LAPTOP-I8E8OQFB" time="7.904">
+  <properties/>
+  <testcase name="noteCard_deleteButton_triggersCallback" classname="org.example.project.screens.NotesUiTest" time="7.489"/>
+  <testcase name="emptyStateView_displaysTitleAndSubtitle" classname="org.example.project.screens.NotesUiTest" time="0.123"/>
+  <testcase name="noteCard_hasFavoriteAndDeleteButtons" classname="org.example.project.screens.NotesUiTest" time="0.109"/>
+  <testcase name="noteCard_displaysTitleAndContent" classname="org.example.project.screens.NotesUiTest" time="0.094"/>
+  <testcase name="noteCard_favoriteButton_triggersCallback" classname="org.example.project.screens.NotesUiTest" time="0.089"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

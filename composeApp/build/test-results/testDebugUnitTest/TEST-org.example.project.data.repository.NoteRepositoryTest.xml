@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.example.project.data.repository.NoteRepositoryTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-05-13T08:46:27.091Z" hostname="LAPTOP-I8E8OQFB" time="1.084">
+  <properties/>
+  <testcase name="getAllNotes_emptyInitially" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.955"/>
+  <testcase name="toggleFavorite_flipsFavoriteStatus" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.054"/>
+  <testcase name="updateNote_changesTitleAndContent" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.017"/>
+  <testcase name="getFavoriteNotes_returnsOnlyFavorites" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.017"/>
+  <testcase name="searchNotes_filtersByQuery" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.01"/>
+  <testcase name="insertNote_savesAndReturnsInGetAll" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.007"/>
+  <testcase name="getAllNotes_emitsUpdatesReactively" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.009"/>
+  <testcase name="deleteNote_removesFromDatabase" classname="org.example.project.data.repository.NoteRepositoryTest" time="0.014"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+]]></system-err>
+</testsuite>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Screen.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">composeApp</a> &gt; <a href="index.source.html" class="el_package">org.example.project.Navigasi</a> &gt; <span class="el_source">Screen.kt</span></div><h1>Screen.kt</h1><pre class="source lang-java linenums">package org.example.project.Navigasi
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.ui.graphics.vector.ImageVector
+
+<span class="nc" id="L10">sealed class Screen(val route: String, val title: String, val icon: ImageVector? = null) {</span>
+<span class="nc" id="L11">    object Notes    : Screen(&quot;notes&quot;,    &quot;Notes&quot;,    Icons.Default.List)</span>
+<span class="nc" id="L12">    object Favorites: Screen(&quot;favorites&quot;,&quot;Favorites&quot;,Icons.Default.Favorite)</span>
+<span class="nc" id="L13">    object Profile  : Screen(&quot;profile&quot;,  &quot;Profile&quot;,  Icons.Default.Person)</span>
+<span class="nc" id="L14">    object Settings : Screen(&quot;settings&quot;, &quot;Settings&quot;, Icons.Default.Settings)</span>
+
+<span class="nc" id="L16">    object AddNote  : Screen(&quot;addnote&quot;,  &quot;Add Note&quot;)</span>
+
+<span class="nc" id="L18">    object NoteDetail : Screen(&quot;notedetail/{noteId}&quot;, &quot;Note Detail&quot;) {</span>
+<span class="nc" id="L19">        fun createRoute(noteId: String) = &quot;notedetail/$noteId&quot;</span>
+    }
+<span class="nc" id="L21">    object EditNote : Screen(&quot;editnote/{noteId}&quot;, &quot;Edit Note&quot;) {</span>
+<span class="nc" id="L22">        fun createRoute(noteId: String) = &quot;editnote/$noteId&quot;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
