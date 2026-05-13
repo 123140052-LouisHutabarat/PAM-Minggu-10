@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.example.project.di.KoinModulesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-05-13T08:46:28.198Z" hostname="LAPTOP-I8E8OQFB" time="0.149">
-  <properties/>
-  <testcase name="allModules_aggregatorHasAtLeastFourModules" classname="org.example.project.di.KoinModulesTest" time="0.143"/>
-  <testcase name="noteValidator_canBeResolvedFromKoin" classname="org.example.project.di.KoinModulesTest" time="0.005"/>
-  <testcase name="dataModule_isPartOfAllModules" classname="org.example.project.di.KoinModulesTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
